@@ -1,11 +1,10 @@
-import jsonrpc
 import json
 import requests
 
 # at height 1742081 emission was 16697487 according to Moneroblocks.info https://archive.fo/fTWWL CMC https://archive.fo/U0XfN
 
 START = 0
-END = 10#1500000
+END = 1742081
 
 previousAvgOf10 = 0
 sum = 0

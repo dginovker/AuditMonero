@@ -9,6 +9,7 @@ END = 1742081
 
 VERBOSE = True
 SCARY_MULTIPLIER = 2
+ATOMIC_UNIT_FACTOR = 10**12
 
 sum = 0
 
@@ -18,14 +19,14 @@ headers = {'Content-Type': 'application/json'}
 previous10 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 def scaryHigh(emission):
-    emission = emission/10**13
+    emission = emission/ATOMIC_UNIT_FACTOR
     if (emission > SCARY_MULTIPLIER*avgOf10()):
         return True;
     return False;
 
 
 def updatePrevious10(emission):
-    emission = emission/10**13
+    emission = emission/ATOMIC_UNIT_FACTOR
     for x in range(9):
         previous10[x] = previous10[x+1]
     previous10[9] = emission
@@ -60,14 +61,14 @@ for i in range(END):
     updatePrevious10(response["result"]["emission_amount"])
 
     if scaryHigh(response["result"]["emission_amount"]):
-        print("WARN: Block " + str(i) + " has abnormally high reward of " + str(round(response["result"]["emission_amount"]/10**13, 2)) + " with fee total of " + str(response["result"]["fee_amount"]) + "(previous avg. was " + str(avgOf10()) + ")\n\t" + str(response) + "\n")
+        print("WARN: Block " + str(i) + " has abnormally high reward of " + str(round(response["result"]["emission_amount"]/ATOMIC_UNIT_FACTOR, 2)) + " with fee total of " + str(response["result"]["fee_amount"]) + "(previous avg. was " + str(avgOf10()) + ")\n\t" + str(response) + "\n")
 
     if response["result"]["status"] != 'OK':
         print("WARN: Block " + str(i) + " did not give the OK!\n\t" + str(response) + "\n")
 
     if i%10000 == 0 and VERBOSE:
-        print("Currently finished parsing block " + str(i) + ". Total emission is currently " + str(round(sum/10**13, 2)) + " XMR")
+        print("Currently finished parsing block " + str(i) + ". Total emission is currently " + str(round(sum/ATOMIC_UNIT_FACTOR, 2)) + " XMR")
 
     f.write(str(i) + "," + str(response["result"]["emission_amount"]) + "," + str(response["result"]["fee_amount"]) + "\n")
 
-print("\n\nTotal Monero minted from block " + str(START) + " to " + str(END) + " was " + str(round(sum/10**13, 2)) + " XMR")
+print("\n\nTotal Monero minted from block " + str(START) + " to " + str(END) + " was " + str(round(sum/ATOMIC_UNIT_FACTOR, 2)) + " XMR")

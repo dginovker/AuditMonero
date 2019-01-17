@@ -14,6 +14,7 @@ Transactions can be further broken down into 3 categories:
 Additionally, there are 3 versions of the Monero blockchain, each coming out at a different fork date. Below is a table of which permutations have been tested and verified.
 
 Blockchain Version | Coinbase Mints | Pre-RingCT | RingCT | RingCT + Bulletproofs
+:--|:--|:--|:--|:--
 Version 1 |
 Version 2 |
-Version 3 | Verified |
+Version 3 | [Verified](https://raw.githubusercontent.com/dginovker/AuditMonero/master/venv/CoinbaseMints.csv) |
